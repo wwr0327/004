@@ -78,7 +78,7 @@ class ModelOptionsTests(unittest.TestCase):
 
     def test_list_and_check_do_not_require_task_or_create_workflow(self):
         with patch("code_review_agent.model_options.ChatClient.from_env") as factory, \
-                patch("code_review_agent.workflow.Workflow") as workflow, \
+                patch("workflow.cli.WorkflowEngine") as workflow, \
                 patch("sys.stdout", new_callable=io.StringIO), patch("sys.stderr", new_callable=io.StringIO):
             factory.return_value.list_models.return_value = ["model"]
             factory.return_value.complete.return_value = {"content": "OK"}

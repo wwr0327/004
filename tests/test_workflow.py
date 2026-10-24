@@ -124,7 +124,8 @@ class WorkflowTests(unittest.TestCase):
     def test_code_fences_and_empty_reply(self):
         agent = CodingAgent(ScriptedClient([{"content": "```python\nx = 1\n```"}, {"content": ""}]))
         state = WorkflowState("生成模块", str(self.root))
-        self.assertEqual(agent.run(state), "x = 1\n")
+        self.assertIs(agent.run(state), state)
+        self.assertEqual(state.code, "x = 1\n")
         with self.assertRaises(ModelError):
             agent.run(state)
 
